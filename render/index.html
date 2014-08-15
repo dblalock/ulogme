@@ -438,10 +438,13 @@
 
       // setup refresh handler to create a post request to /reload
       $("#reloadbutton").click(function() {
-
         startSpinner();
+        var time = 0;
+        if (cur_event_id >= 0 && event_list) {
+          time = event_list[cur_event_id].t0;
+        }
         $.post("/refresh",
-          {"time" : event_list[cur_event_id].t0},
+          {"time" : time},
           function(data,status){
             console.log("Data: " + data + "\nStatus: " + status);
             stopSpinner();
